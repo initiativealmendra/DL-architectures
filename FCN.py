@@ -1,6 +1,7 @@
 import torch 
 import torch.nn as nn
 from torchvision.models.vgg import VGG
+from torchvision import models
 
 class encoder(VGG):
 	'''
@@ -60,7 +61,7 @@ class decoder(nn.Module):
 		super().__init__()
 
 		self.n_classes = n_classes
-	    self.encoder = encoder
+		self.encoder = encoder
 	    # Transposed convolutions. (to upsampling previous layers)
 	    self.relu = nn.ReLU(inplace=True)
 	    self.deconv1 = nn.ConvTranspose2d(512, 512, 3, 2, padding=1, output_padding=1, dilation=1) # 1x1 convolution.
@@ -102,5 +103,5 @@ img_height = 512
 
 
 # fcn = decoder(encoder(), n_classes)
-# output = fcn(torch.randn([batch_size, 3, width, height]))
+# output = fcn(torch.randn([batch_size, 3, img_width, img_height]))
 # print(output) # [10, 12, 512, 512]
